@@ -1,4 +1,5 @@
 import csv
+# import us
 
 with open('C:/Users/Administrator/Google Drive/Rice Big Data Bootcamp/hw/hw3/Resources/employee_data.csv') as csv_file:    
     csv_reader = csv.reader(csv_file, delimiter=',')

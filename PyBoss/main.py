@@ -1,7 +1,10 @@
 import csv
-# import us
+import os
+# import us #considered instead of listing it out in variables, but it converts from state code to state name
 
-with open('C:/Users/Administrator/Google Drive/Rice Big Data Bootcamp/hw/hw3/Resources/employee_data.csv') as csv_file:    
+myfile = os.path.join(os.path.expanduser('~'),"google drive","rice big data bootcamp","hw", "hw3","resources","employee_data.csv")
+# relative path not used as github is complaining about the storing of the large file
+with open(myfile) as csv_file:    
     csv_reader = csv.reader(csv_file, delimiter=',')
 
 #   variables  

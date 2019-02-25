@@ -52,5 +52,5 @@ with open(myfile) as csv_file:
     pybankfile = open("hw3pypoll.txt", "a")
     pybankfile.write(f'Election Results')
     pybankfile.write(f'----------------------------')
-    pybankfile.write(f'Winner: ')
+    pybankfile.write(f'Winner: {highest_name}')
     pybankfile.write(f'----------------------------')

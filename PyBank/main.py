@@ -6,7 +6,7 @@ myfile = os.path.join(os.path.expanduser('~'),"google drive","rice big data boot
 with open(myfile) as csv_file:    
     csv_reader = csv.reader(csv_file, delimiter=',')
 
-#   variables  
+    #   variables  
     line_count = 0
     number_of_months = 0
     total_amount = 0
@@ -57,11 +57,14 @@ with open(myfile) as csv_file:
     print(f'Greatest Increase in Profits: {greatest_increase_month} (${greatest_increase})')
     print(f'Greatest Decrease in Profits: {greatest_decrease_month} (${greatest_decrease})')
  #  output to file   
-    pybankfile = open("hw3pybank.txt", "a")
-    pybankfile.write(f'Financial Analysis')
-    pybankfile.write(f'----------------------------')
-    pybankfile.write(f'Total Months: {number_of_months}')
-    pybankfile.write(f'Total: $ {total_amount}')
-    pybankfile.write(f'Average Change: $ {average_change}')
-    pybankfile.write(f'Greatest Increase in Profits: {greatest_increase_month} (${greatest_increase})')
-    pybankfile.write(f'Greatest Decrease in Profits: {greatest_decrease_month} (${greatest_decrease})')
+    with open('pybank_file.csv', mode='w') as pybank_file:
+        pybank_writer = csv.writer(pybank_file, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
+
+        pybank_writer.writerow([f'Financial Analysis'])
+        pybank_writer.writerow([f'----------------------------'])
+        pybank_writer.writerow([f'Total Months: {number_of_months}'])
+        pybank_writer.writerow([f'Total: $ {total_amount}'])
+        pybank_writer.writerow([f'Average Change: $ {average_change}'])
+        pybank_writer.writerow([f'Greatest Increase in Profits: {greatest_increase_month} (${greatest_increase})'])
+        pybank_writer.writerow([f'Greatest Decrease in Profits: {greatest_decrease_month} (${greatest_decrease})'])
+   

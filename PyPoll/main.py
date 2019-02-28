@@ -49,8 +49,23 @@ with open(myfile) as csv_file:
     print(f'Winner: {highest_name}')
     print(f'----------------------------')
   #  output to file   
-    pybankfile = open("hw3pypoll.txt", "a")
-    pybankfile.write(f'Election Results')
-    pybankfile.write(f'----------------------------')
-    pybankfile.write(f'Winner: {highest_name}')
-    pybankfile.write(f'----------------------------')
+    with open('pypoll_file.csv', mode='w') as pypoll_file:
+        pypoll_writer = csv.writer(pypoll_file, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
+
+        pypoll_writer.writerow([f'Election Results'])
+        pypoll_writer.writerow([f'----------------------------'])
+        pypoll_writer.writerow([f'Total Votes: {total_votes}'])
+        pypoll_writer.writerow([f'----------------------------'])
+
+        line_count = 0
+        max = len(candidates_list)
+        for max in candidates_list:
+            percentage = candidates_totals[line_count] / total_votes * 100
+            pypoll_writer.writerow([f'{candidates_list[line_count]}: {percentage:.3f}% ({candidates_totals[line_count]})'])
+            if percentage > highest:
+                highest = percentage
+                highest_name = candidates_list[line_count]
+            line_count += 1
+        pypoll_writer.writerow([f'----------------------------'])
+        pypoll_writer.writerow([f'Winner: {highest_name}'])
+        pypoll_writer.writerow([f'----------------------------'])

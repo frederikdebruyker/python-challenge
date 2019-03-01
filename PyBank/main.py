@@ -24,6 +24,7 @@ with open(myfile) as csv_file:
     average_change = 0
 
 #   functionality
+#   CSV NEXT is well understood but I finished this homework before we were taught this functionality
     for row in csv_reader:
         if line_count == 0:
              line_count += 1

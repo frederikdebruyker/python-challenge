@@ -1,13 +1,20 @@
+# PyBank
+# Frederik De Bruyker
+# Rice Big Data Bootcamp - Feb - Aug 2019
+
+# import libraries
 import csv
 import os
 
+# import csv file(s)
 myfile = os.path.join(os.path.expanduser('~'),"google drive","rice big data bootcamp","hw", "hw3","resources","budget_data.csv")
-# relative path not used as github is complaining about the storing of the large file
+# relative path not used as github is complaining about the storing of the large file - more specifically for pypoll
 with open(myfile) as csv_file:    
     csv_reader = csv.reader(csv_file, delimiter=',')
+    next(csv_reader, None)
 
-    #   variables  
-    line_count = 0
+#   variables  
+    line_count=1
     number_of_months = 0
     total_amount = 0
     previous_profit = 0
@@ -23,30 +30,26 @@ with open(myfile) as csv_file:
     number_of_changes = 0
     average_change = 0
 
-#   functionality
-#   CSV NEXT is well understood but I finished this homework before we were taught this functionality
+#  functionality
     for row in csv_reader:
-        if line_count == 0:
-             line_count += 1
-        else:
-            line_count += 1
-            number_of_months += 1
-            total_amount = total_amount + int(row[1])
-            # average
-            if line_count > 2:
-                change = int(row[1]) - previous_profit
-                number_of_changes += 1
-                sum_change = sum_change + change
-            # greatest increase
-            if (int(row[1]) - previous_profit) > greatest_increase:
-                greatest_increase = ( int(row[1]) - previous_profit )
-                greatest_increase_month = row[0]
-            previous_profit = int(row[1])
-            # greatest decrease
-            if (int(row[1]) - previous_loss) < greatest_decrease:
-                greatest_decrease = ( int(row[1]) - previous_loss )
-                greatest_decrease_month = row[0]
-            previous_loss = int(row[1])
+        line_count += 1
+        number_of_months += 1
+        total_amount = total_amount + int(row[1])
+        # average
+        if line_count > 2:
+            change = int(row[1]) - previous_profit
+            number_of_changes += 1
+            sum_change = sum_change + change
+        # greatest increase
+        if (int(row[1]) - previous_profit) > greatest_increase:
+            greatest_increase = ( int(row[1]) - previous_profit )
+            greatest_increase_month = row[0]
+        previous_profit = int(row[1])
+        # greatest decrease
+        if (int(row[1]) - previous_loss) < greatest_decrease:
+            greatest_decrease = ( int(row[1]) - previous_loss )
+            greatest_decrease_month = row[0]
+        previous_loss = int(row[1])
     average_change = sum_change / number_of_changes
     average_change = round(average_change,2)
  #  output to screen

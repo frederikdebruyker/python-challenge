@@ -1,3 +1,7 @@
+# PyParagraph
+# Frederik De Bruyker
+# Rice Big Data Bootcamp - Feb - Aug 2019
+
 import os
 import re
 

@@ -1,10 +1,17 @@
+# PyPoll
+# Frederik De Bruyker
+# Rice Big Data Bootcamp - Feb - Aug 2019
+
+# import libraries
 import csv
 import os
 
+# import csv file(s)
 myfile = os.path.join(os.path.expanduser('~'),"google drive","rice big data bootcamp","hw", "hw3","resources","election_data.csv")
 # relative path not used as github is complaining about the storing of the large file
 with open(myfile) as csv_file:    
     csv_reader = csv.reader(csv_file, delimiter=',')
+    next(csv_reader, None)
 
 #   variables  
     line_count = 0
@@ -16,20 +23,16 @@ with open(myfile) as csv_file:
     highest_name = ''
 
 #   functionality
-#   CSV NEXT is well understood but I finished this homework before we were taught this functionality
     for row in csv_reader:
-        if line_count == 0:
-             line_count += 1
+        total_votes += 1
+        if row[2] in candidates_list:
+            # candidate is already in our list
+            index = candidates_list.index(row[2])
+            candidates_totals[index] += 1
         else:
-            total_votes += 1
-            if row[2] in candidates_list:
-                # candidate is already in our list
-                index = candidates_list.index(row[2])
-                candidates_totals[index] += 1
-            else:
-                # candidate is not yet in our list
-                candidates_list.append(row[2])
-                candidates_totals.append(1)
+            # candidate is not yet in our list
+            candidates_list.append(row[2])
+            candidates_totals.append(1)
 
 
   #  output to screen

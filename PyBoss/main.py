@@ -1,89 +1,41 @@
+# PyBoss
+# Frederik De Bruyker
+# Rice Big Data Bootcamp - Feb - Aug 2019
+
+# import libraries
 import csv
 import os
-# import us #considered instead of listing it out in variables, but it converts from state code to state name
+import us
 
 myfile = os.path.join(os.path.expanduser('~'),"google drive","rice big data bootcamp","hw", "hw3","resources","employee_data.csv")
 # relative path not used as github is complaining about the storing of the large file
 with open(myfile) as csv_file:    
     csv_reader = csv.reader(csv_file, delimiter=',')
+    # do not consider next(csv_reader, None) in this program
 
 #   variables  
     line_count = 0
-    # compliments of github https://gist.github.com/rogerallen/1583593 - python dictionary object
-    usstatecode = {
-    'Alabama': 'AL',
-    'Alaska': 'AK',
-    'Arizona': 'AZ',
-    'Arkansas': 'AR',
-    'California': 'CA',
-    'Colorado': 'CO',
-    'Connecticut': 'CT',
-    'Delaware': 'DE',
-    'District of Columbia': 'DC',
-    'Florida': 'FL',
-    'Georgia': 'GA',
-    'Hawaii': 'HI',
-    'Idaho': 'ID',
-    'Illinois': 'IL',
-    'Indiana': 'IN',
-    'Iowa': 'IA',
-    'Kansas': 'KS',
-    'Kentucky': 'KY',
-    'Louisiana': 'LA',
-    'Maine': 'ME',
-    'Maryland': 'MD',
-    'Massachusetts': 'MA',
-    'Michigan': 'MI',
-    'Minnesota': 'MN',
-    'Mississippi': 'MS',
-    'Missouri': 'MO',
-    'Montana': 'MT',
-    'Nebraska': 'NE',
-    'Nevada': 'NV',
-    'New Hampshire': 'NH',
-    'New Jersey': 'NJ',
-    'New Mexico': 'NM',
-    'New York': 'NY',
-    'North Carolina': 'NC',
-    'North Dakota': 'ND',
-    'Ohio': 'OH',
-    'Oklahoma': 'OK',
-    'Oregon': 'OR',
-    'Pennsylvania': 'PA',
-    'Rhode Island': 'RI',
-    'South Carolina': 'SC',
-    'South Dakota': 'SD',
-    'Tennessee': 'TN',
-    'Texas': 'TX',
-    'Utah': 'UT',
-    'Vermont': 'VT',
-    'Virginia': 'VA',
-    'Washington': 'WA',
-    'West Virginia': 'WV',
-    'Wisconsin': 'WI',
-    'Wyoming': 'WY',
-    }
-
+    usstatecode = us.states.mapping('name','abbr')
+ 
 #   functionality
     # open the file to write to
-    pybossfile = open("hw3pyboss.txt", "a")
-    pybossfile.write(f'Financial Analysis')
+    with open('pyboss_file.csv', mode='w') as pyboss_file:
+        pyboss_writer = csv.writer(pyboss_file, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
 
-    # roll through the file
-    for row in csv_reader:
-        # convert the data
-        if line_count == 0:
-            # process header
-            # write to the file
-            pybossfile.write(f'{row[0]},First Name,Last Name,{row[2]},{row[3]},{row[4]}')
-            print(f'{row[0]},header')
-        else:
-            # process data
-            name = row[1].split()
-            # write to the file
-            pybossfile.write(f'{row[0]},{name[0]},{name[1]},{row[2][5:7]}/{row[2][8:]}/{row[2][:4]},***-**{row[3][6:]},{usstatecode[row[4]]}')
-            print(f'{row[0]},{name[0]},{name[1]},{row[2][5:7]}/{row[2][8:]}/{row[2][:4]},***-**{row[3][6:]},{usstatecode[row[4]]}')
-        line_count += 1
-        
+        pyboss_writer.writerow([f'Financial Analysis'])
 
-
+        # roll through the file
+        for row in csv_reader:
+            # convert the data
+            if line_count == 0:
+                # process header
+                # write to the file
+                pyboss_writer.writerow([f'{row[0]},First Name,Last Name,{row[2]},{row[3]},{row[4]}'])
+                print(f'{row[0]},header')
+            else:
+                # process data
+                name = row[1].split()
+                # write to the file
+                pyboss_writer.writerow([f'{row[0]},{name[0]},{name[1]},{row[2][5:7]}/{row[2][8:]}/{row[2][:4]},***-**{row[3][6:]},{usstatecode[row[4]]}'])
+                print(f'{row[0]},{name[0]},{name[1]},{row[2][5:7]}/{row[2][8:]}/{row[2][:4]},***-**{row[3][6:]},{usstatecode[row[4]]}')
+            line_count += 1
